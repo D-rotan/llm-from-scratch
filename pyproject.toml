@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llmfs"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+    "regex>=2024.0.0",
+    "einops>=0.8.0",
+    "torch",
+    "numpy",
+]
+
+[project.optional-dependencies]
+dev = ["pytest","ruff","mypy"]
+
+[project.scripts]
+llmfs = "llmfs.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llmfs"]
+
+[tool.ruff]
+line-length = 100

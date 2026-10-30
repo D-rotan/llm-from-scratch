@@ -1,0 +1,32 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 测试与代码检查缓存
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# 虚拟环境
+.venv/
+venv/
+
+# 构建产物
+build/
+dist/
+*.egg-info/
+
+# 保留 data 目录结构，仅提交 .gitkeep 占位文件
+data/**
+
+!data/
+!data/**/
+!data/**/.gitkeep
+
+*.pt
+*.pth
+*.ckpt
+
+# 本地日志与编辑器配置
+*.log
+.vscode/
