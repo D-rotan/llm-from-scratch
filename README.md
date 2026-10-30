@@ -266,3 +266,22 @@ python -m unittest discover -s tests -v
 **这个项目是一次从基础原理出发，逐步理解和实现语言模型的实践记录。**
 
 代码仍在持续完善中。
+
+## 数据集准备
+
+本项目使用微软研究团队发布的 **TinyStoriesV2-GPT4** 数据集进行语言模型训练。
+
+数据集下载地址：
+
+| 文件 | 下载链接 |
+|---|---|
+| 训练集 | [TinyStoriesV2-GPT4-train.txt](https://huggingface.co/datasets/roneneldan/TinyStories/resolve/main/TinyStoriesV2-GPT4-train.txt) |
+| 验证集 | [TinyStoriesV2-GPT4-valid.txt](https://huggingface.co/datasets/roneneldan/TinyStories/resolve/main/TinyStoriesV2-GPT4-valid.txt) |
+
+**数据集主页：** [TinyStories - Hugging Face](https://huggingface.co/datasets/roneneldan/TinyStories)
+
+下载完成后，将数据文件放入项目的 `data/corpus/` 目录。
+
+后续通过项目提供的 Tokenizer 训练与数据预处理命令，生成对应的词表、合并规则及模型训练数据。
+
+**注意：** 数据集、Tokenizer 训练产物、预处理数据及模型权重均不纳入 Git 版本管理，需要用户自行下载或生成。
