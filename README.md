@@ -138,6 +138,25 @@ python -m pip install -e .
 
 项目使用 CUDA 时，需要当前环境中的 PyTorch 支持 CUDA。下面的训练和生成示例使用 `--device cuda`；使用 CPU 时改为 `--device cpu`。
 
+### 数据集准备
+
+本项目使用微软研究团队发布的 **TinyStoriesV2-GPT4** 数据集进行语言模型训练。
+
+数据集下载地址：
+
+| 文件 | 下载链接 |
+|---|---|
+| 训练集 | [TinyStoriesV2-GPT4-train.txt](https://huggingface.co/datasets/roneneldan/TinyStories/resolve/main/TinyStoriesV2-GPT4-train.txt) |
+| 验证集 | [TinyStoriesV2-GPT4-valid.txt](https://huggingface.co/datasets/roneneldan/TinyStories/resolve/main/TinyStoriesV2-GPT4-valid.txt) |
+
+**数据集主页：** [TinyStories - Hugging Face](https://huggingface.co/datasets/roneneldan/TinyStories)
+
+下载完成后，将数据文件放入项目的 `data/corpus/` 目录。
+
+后续通过项目提供的 Tokenizer 训练与数据预处理命令，生成对应的词表、合并规则及模型训练数据。
+
+**注意：** 数据集、Tokenizer 训练产物、预处理数据及模型权重均不纳入 Git 版本管理，需要用户自行下载或生成。
+
 ## 7. 使用
 
 以下命令均在项目根目录执行。PowerShell 多行命令使用反引号续行，反引号后不要加空格。
@@ -254,6 +273,7 @@ python -m unittest discover -s tests -v
 - 数据集加载和训练效率都有待提高
 - 在tokenize的时候只能用2000万token为一次文件，可能导致性能下降
 - 不推荐large preset
+- 还未对特殊 Token 做处理
 
 ## 10. 学习资料
 
@@ -266,22 +286,3 @@ python -m unittest discover -s tests -v
 **这个项目是一次从基础原理出发，逐步理解和实现语言模型的实践记录。**
 
 代码仍在持续完善中。
-
-## 数据集准备
-
-本项目使用微软研究团队发布的 **TinyStoriesV2-GPT4** 数据集进行语言模型训练。
-
-数据集下载地址：
-
-| 文件 | 下载链接 |
-|---|---|
-| 训练集 | [TinyStoriesV2-GPT4-train.txt](https://huggingface.co/datasets/roneneldan/TinyStories/resolve/main/TinyStoriesV2-GPT4-train.txt) |
-| 验证集 | [TinyStoriesV2-GPT4-valid.txt](https://huggingface.co/datasets/roneneldan/TinyStories/resolve/main/TinyStoriesV2-GPT4-valid.txt) |
-
-**数据集主页：** [TinyStories - Hugging Face](https://huggingface.co/datasets/roneneldan/TinyStories)
-
-下载完成后，将数据文件放入项目的 `data/corpus/` 目录。
-
-后续通过项目提供的 Tokenizer 训练与数据预处理命令，生成对应的词表、合并规则及模型训练数据。
-
-**注意：** 数据集、Tokenizer 训练产物、预处理数据及模型权重均不纳入 Git 版本管理，需要用户自行下载或生成。
