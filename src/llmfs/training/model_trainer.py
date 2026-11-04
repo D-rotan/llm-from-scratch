@@ -40,9 +40,9 @@ def Training_loop(config: ModelTrainerConfig):
             for group in optimzer.param_groups:
                 group["lr"] = learning_rate
         optimzer.step()
-        loss_sum += loss.item()
+        loss_sum += loss.detach()
         if (iter+1) % config.checkpoint_iters == 0:
-            avg_loss = loss_sum / config.checkpoint_iters
+            avg_loss = loss_sum.item() / config.checkpoint_iters
             print(f"iter={iter+1},loss={avg_loss:.4f}")
             loss_sum = 0.0
             save_checkpoint(model=model,optimizer=optimzer,iteration=iter,

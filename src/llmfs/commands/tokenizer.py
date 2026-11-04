@@ -65,14 +65,18 @@ def run_train_mode(args: argparse.Namespace) -> None:
     times = 0
     count = 0
     token_count = 0
-    start = time.perf_counter()
+    start1 = time.perf_counter()
     save_path = request.save_path / request.text_path.stem
     save_path.mkdir(exist_ok=True,parents=True)
     with open(request.text_path,"r",encoding="utf-8") as file:
+        start = time.perf_counter()
         for token in tokenizer.encode_iterable(file):
             times += 1
             token_list.append(token)
             if times % 20_000_000 == 0:
+                end = time.perf_counter()
+                print("编码2千万token时间：",end - start)
+                start = end
                 count += 1
                 token_count += len(token_list)
                 print(f"已编码 Token 数：{token_count}")
@@ -83,9 +87,9 @@ def run_train_mode(args: argparse.Namespace) -> None:
             token_count += len(token_list)
             np.save(Path(f"{save_path / request.text_path.stem}{count}.npy"),token_list)
             token_list = []
-    end = time.perf_counter()
+    end1 = time.perf_counter()
     print("一共编码 Token 数：",token_count)
-    print(f"总共耗时：{(end - start) * 1000:.2f} ms")
+    print(f"总共耗时：{(end1 - start1):.4f} s")
     start = time.perf_counter()
     print("现在进行总和文件")
     output_path = (save_path / request.text_path.stem).with_suffix(".npy")

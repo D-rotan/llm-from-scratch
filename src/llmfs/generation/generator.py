@@ -17,7 +17,8 @@ def generate(config:GenerationConfig):
             model_weights = model_weights["model_data"]
         model.load_state_dict(model_weights)
         tokenizer = Tokenizer(config=config.tokenizer)
-        token_ids = torch.tensor([tokenizer.encode(config.prompt)],dtype=torch.long,device=config.device)
+        ids = list(tokenizer.encode(config.prompt))
+        token_ids = torch.tensor([ids],dtype=torch.long,device=config.device)
         result = decoder(token_ids=token_ids,max_new_tokens=config.max_new_tokens,
                 context_length=config.context_length,model=model,
                 temperature=config.temperature,top_p=config.top_p)
@@ -27,11 +28,12 @@ def generate(config:GenerationConfig):
 #目前只支持单batch推理
 def decoder(token_ids:torch.Tensor,max_new_tokens:int,context_length:int,
             model:Transformer_lm,temperature:float,top_p:float):
-    size = token_ids.shape[-1]
+    # size = token_ids.shape[-1]
     for _ in range(max_new_tokens):
         context = token_ids[:, -context_length:]
         next_token = sample_next_token(logits=model(context),T=temperature,p=top_p)
         token_ids = torch.cat((token_ids,next_token),dim=-1)
+
     # return token_ids[0, size:].tolist()
     return token_ids[0,:].tolist()
 
