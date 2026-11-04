@@ -35,7 +35,7 @@ class Tokenizer:
                     else:
                         ids_tuple = tuple(self._encode_ordinary(token))
                         self.token_cache[token] = ids_tuple
-                        yield from ids
+                        yield from ids_tuple
     def encode_iterable(self, iterable: Iterable[str]) -> Iterator[int]:
         for text in iterable:
             yield from self.encode(text)

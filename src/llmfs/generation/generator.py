@@ -42,7 +42,7 @@ def temperature_scaling(logits:torch.Tensor,T:float):
     #logits(batch_size,seq_len,vocab_size)
     logits_max = torch.max(logits,dim=-1,keepdim=True).values
     if T <= 0:
-        raise ValueError("Temperture too small")
+        raise ValueError("Temperature too small")
     logits = (logits-logits_max) / T
     exp_logits = torch.exp(logits)
     result = exp_logits / torch.sum(exp_logits,dim=-1,keepdim=True)

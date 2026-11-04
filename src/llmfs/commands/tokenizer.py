@@ -117,7 +117,7 @@ def run_encode(args: argparse.Namespace) -> None:
     config = make_config(args)
     request = EncodeRequest(text=args.text)
     print("进入编码模式，以下是编码结果")
-    print(Tokenizer(config).encode(request.text))
+    print(list(Tokenizer(config).encode(request.text)))
     print("编码结束")
 
 

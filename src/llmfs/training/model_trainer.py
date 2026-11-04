@@ -19,7 +19,7 @@ def Training_loop(config: ModelTrainerConfig):
 
     loss_fn = cross_entropy
 
-    optimzer = AdamW(model.parameters(),betas=config.betas,weight_decay=config.weight_decay,
+    optimizer = AdamW(model.parameters(),betas=config.betas,weight_decay=config.weight_decay,
                      eps=config.eps_AdamW,lr=config.lr)
 
     model.train()
@@ -28,7 +28,7 @@ def Training_loop(config: ModelTrainerConfig):
     for iter in range(config.max_iters):
         X,Y = data_loading(data,batch_size=config.batch_size,
                            context_length=config.context_length,device=config.device)
-        optimzer.zero_grad()
+        optimizer.zero_grad()
         logits = model(X)
         loss = loss_fn(logits,Y)
         loss.backward()
@@ -37,15 +37,15 @@ def Training_loop(config: ModelTrainerConfig):
         if(config.on_learning_rate_schedule):
             learning_rate = learning_rate_schedule(iter,lr_min=config.lr_min,lr_max=config.lr_max,
                                                    T_w=config.warmup_iters,T_c=config.cosine_cycle_iters)
-            for group in optimzer.param_groups:
+            for group in optimizer.param_groups:
                 group["lr"] = learning_rate
-        optimzer.step()
+        optimizer.step()
         loss_sum += loss.detach()
         if (iter+1) % config.checkpoint_iters == 0:
             avg_loss = loss_sum.item() / config.checkpoint_iters
             print(f"iter={iter+1},loss={avg_loss:.4f}")
             loss_sum = 0.0
-            save_checkpoint(model=model,optimizer=optimzer,iteration=iter,
+            save_checkpoint(model=model,optimizer=optimizer,iteration=iter,
                             out=checkpoint_dir / f"checkpoint{iter+1}")
     save_path = config.out.parent / f"{config.out.stem}_{config.src.stem}.pt"
     save_path.parent.mkdir(parents=True, exist_ok=True)
