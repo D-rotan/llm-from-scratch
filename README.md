@@ -268,7 +268,6 @@ python -m unittest discover -s tests -v
 目前项目主要用于学习和验证语言模型的基础原理，距离完整、高效的语言模型训练系统仍有较大差距。
 
 具体局限：
-- Tokenizer的encode优化还能进一步，现有encode功能效率低
 - 模型训练阶段的分段训练还未完善，但是保留了load_checkpoint接口
 - 数据集加载和训练效率都有待提高
 - 在tokenize的时候只能用2000万token为一次文件，可能导致性能下降
