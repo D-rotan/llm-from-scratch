@@ -276,7 +276,7 @@ python -m unittest discover -s tests -v
 
 ## 10. 学习资料
 
-- [Stanford CS336: Language Modeling from Scratch](https://stanford-cs336.github.io/spring2025/)
+- [Stanford CS336: Language Modeling from Scratch](https://cs336.stanford.edu/)
 - [PyTorch Documentation](https://pytorch.org/docs/stable/index.html)
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
 
